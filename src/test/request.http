@@ -1,0 +1,12 @@
+GET http://localhost:8083/ping
+Accept: application/json
+Cache-Control: no-cache
+Content-Type: application/json
+
+###
+GET http://localhost:8083/user
+Accept: application/json
+Cache-Control: no-cache
+Content-Type: application/json
+
+{ "name": "Steve", "age": 20, "location": "USA"}
