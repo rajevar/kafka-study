@@ -16,13 +16,13 @@ public class DataController {
         this.service = service;
     }
 
-    @GetMapping(value = "user")
+    @PostMapping(value = "user")
     public ResponseEntity sendUserData(@RequestBody User user) {
         service.sendMessage(user);
         return ResponseEntity.ok("Ok!");
     }
 
-    @PostMapping(value = "ping")
+    @GetMapping(value = "ping")
     public ResponseEntity ping() {
         return ResponseEntity.ok("pong");
     }
