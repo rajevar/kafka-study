@@ -1,18 +1,29 @@
-server:
-  port: 8083
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health, info
 spring:
+  cloud:
+    stream:
+      function:
+        definition: userConsume, processNdc
+      bindings:
+        userConsume-in-0:
+          destination: Blah.Topic
+        processNdc-in-0:
+          destination: Blah.Topic
+      kafka.streams:
+        binder:
+          functions:
+            userConsume:
+              applicationId: user-consume-app-id
+            processNdc:
+              applicationId: process-user
+          deserialization-exception-handler: logandcontinue
+          auto-add-partitions: true
+          min-partition-count: 3
+          configuration:
+            num.stream.threads: 3
+            spring.json.trusted.packages: '*'
+          consumer-properties:
+            max.poll.records: 500
   kafka:
-    bootstrap-servers: localhost:9092
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-    consumer:
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      properties:
-        spring.json.trusted.packages: "com.example.study.kafka.demo.*"

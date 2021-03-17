@@ -1,0 +1,39 @@
+application:
+  name: efsng-kafka
+---
+spring:
+  profiles: local
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers:
+            - localhost:9092
+        streams:
+          binder:
+            configuration:
+              application.server: ${COMPUTERNAME}:8080
+  kafka:
+    bootstrap-servers: localhost:9092
+server:
+  port: 8090
+  servlet:
+    context-path: /
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+logging:
+  pattern:
+    console: "[%-5level]%d{yyyy-MM-dd'T'HH:mm:ss.SSS}[%t].%c{0}.[%M].%L - %msg%n"
+  level:
+    org: DEBUG
+    com.medimpact: DEBUG
+    org.apache.kafka: DEBUG
+    kafka: ERROR
+---
+spring:
+  config:
+    additional-location: file:/app/config/
+  profiles: k8
