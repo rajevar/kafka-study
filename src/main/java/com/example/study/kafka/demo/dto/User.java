@@ -15,4 +15,6 @@ public class User {
     String name;
     int age;
     String location;
+    String id;
+
 }
