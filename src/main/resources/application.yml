@@ -2,19 +2,23 @@ spring:
   cloud:
     stream:
       function:
-        definition: userConsume, processNdc
+        definition: userConsume, processUser, userStore
       bindings:
         userConsume-in-0:
           destination: Blah.Topic
-        processNdc-in-0:
+        processUser-in-0:
+          destination: Blah.Topic
+        userStore-in-0:
           destination: Blah.Topic
       kafka.streams:
         binder:
           functions:
             userConsume:
               applicationId: user-consume-app-id
-            processNdc:
+            processUser:
               applicationId: process-user
+            userStore:
+              applicationId: user-store
           deserialization-exception-handler: logandcontinue
           auto-add-partitions: true
           min-partition-count: 3

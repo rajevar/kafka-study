@@ -10,8 +10,14 @@ Cache-Control: no-cache
 Content-Type: application/json
 
 {
-  "id": "5",
-  "name": "Sam",
-  "age": 20,
-  "location": "USA"
+  "id": "101",
+  "name": "Kris",
+  "age": 25,
+  "location": "India"
 }
+
+###
+GET http://localhost:8080/user/101
+Accept: application/json
+Cache-Control: no-cache
+Content-Type: application/json

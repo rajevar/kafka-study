@@ -3,11 +3,7 @@ package com.example.study.kafka.demo.rest;
 import com.example.study.kafka.demo.dto.User;
 import com.example.study.kafka.demo.service.KafkaService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class DataController {
@@ -16,14 +12,20 @@ public class DataController {
         this.service = service;
     }
 
-    @PostMapping(value = "user")
-    public ResponseEntity sendUserData(@RequestBody User user) {
+    @PostMapping(value = "/user")
+    public ResponseEntity<String> sendUserData(@RequestBody User user) {
         service.sendMessage(user);
         return ResponseEntity.ok("Ok!");
     }
 
-    @GetMapping(value = "ping")
-    public ResponseEntity ping() {
+    @GetMapping(value = "/ping")
+    public ResponseEntity<String> ping() {
         return ResponseEntity.ok("pong");
+    }
+
+    @GetMapping(value= "/user/{userId}")
+    public ResponseEntity<String> user(@PathVariable String userId) {
+        service.fetchUserData(userId);
+        return ResponseEntity.ok("Ok!");
     }
 }
