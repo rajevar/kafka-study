@@ -1,5 +1,5 @@
 application:
-  name: efsng-kafka
+  name: kafka-study
 ---
 spring:
   profiles: local
